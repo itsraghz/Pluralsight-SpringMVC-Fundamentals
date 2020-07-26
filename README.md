@@ -124,8 +124,8 @@ Adding a Registration Controller
    * The dispatcherServlet is invoked and delegates the request to the `RegistrationController` class 
    * The attribute is bound to the model `Registration` 
    * The Controller method `addRegistration` - the one with `@PostMapping` annotation is invoked
-   * You can see the `System.out.println()` statement with the message in the Console that prints out the name entered in the HTMLL form - via `regitration.getName()` method
-   * The `ViewResolver` comes into picture and with the help of the configuration values in the `application.properties` it picks up the jsp file `registration.jsp` with the help of the return value of the `addRegisgration()` method which is - "registration"
+   * You can see the `System.out.println()` statement with the message in the Console that prints out the name entered in the HTMLL form - via `registration.getName()` method
+   * The `ViewResolver` comes into picture and with the help of the configuration values in the `application.properties` it picks up the jsp file `registration.jsp` with the help of the return value of the `addRegistration()` method which is - "registration"
    
 > *Note*: The issue with the earlier module - of the main context root `http://localhost:8080/conference` is now resolved, after we delete the `index.html` page inside the `webapp` directory.
    
