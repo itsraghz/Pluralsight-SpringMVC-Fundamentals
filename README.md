@@ -75,3 +75,56 @@ spring.mvc.view.suffix=.jsp
     as the `prefix` and `suffix` are automatically deduced from the configuration made in the `application.properties` file.
 
 * *Issue*: The main URL `http://localhost:8080/conference` seems to have broken, possibly due to the fact that the mapping has not been added explicitly.
+
+## Module 5 - Creating Controllers in Spring MVC
+
+Adding a Registration Controller
+
+* Add a new jsp filed `/WEB-INF/jsp/registration.jsp` and just add a `<h1>Registration</h1>` element in the body of the JSP file
+* Add a new `Controller` - `com.pluralsight.conference.controller.RegistrationController` with the same method syntax as that of `GreetingController` with the `@GetMapping("registration")`.
+* Add a new Java class `com.pluralsight.conference.model.Registration` with a single property `name` and its getters and setters
+* Delete the `webapp/index.html` file as the Spring MVC is all set up now
+* Modify the `src/main/resources/static/index.html` file with the links to `greeting` and `registration`.
+```jsp
+<body>
+    <h1>Hello</h1>
+    <a href="greeting">Greeting</a>
+    <a href="registration">Registration</a>
+</body>
+```    
+* Comment the method with `@GetMapping("registration")` in the `RegistrationController.java` and add the two new methods as follows.
+```java
+    @GetMapping("registration")
+    public String getRegistration(@ModelAttribute("registration") Registration registration) {
+        System.out.println("RegistrationController - register() method invoked");
+        return "registration";
+    }
+
+    @PostMapping("registration")
+    public String addRegistration(@ModelAttribute("registration") Registration registration) {
+        System.out.println("RegistrationController - addRegistration() method invoked for : " + registration.getName());
+        return "registration";
+    }
+```
+* The first one was to just have the `HTTP Get` mapping and the 2nd one was to have the `HTTP Post` mapping, which happens via Form Submit.
+* Add the `spring:form` taglib to the `registration.jsp` as follows
+```jsp
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+```
+
+> Note: You need to enable the `JSP Support` in the Intellij IDEA to have the proper auto-completion and context-sensitive help.
+
+* Add a `<form:form>` element in the `registration.jsp` with a HTML table to have an `form:input` to capture/map the `path` element with the `name`
+* Add a `modelAttribute` attribute in the `<form:form>` to map the elements in the HTML from to this Model attribute. 
+
+> Remember: The same attribute name `registration` has been captured in the Controller methods with `@GetMapping` and `@PostMapping` annotations.
+*  Rerun the Tomcat Server and click the URL `http://localhost:8080/conference/registratation`
+   * You will have a HTML form to enter a name
+   * Click on the 'Add Registration' button
+   * The dispatcherServlet is invoked and delegates the request to the `RegistrationController` class 
+   * The attribute is bound to the model `Registration` 
+   * The Controller method `addRegistration` - the one with `@PostMapping` annotation is invoked
+   * You can see the `System.out.println()` statement with the message in the Console that prints out the name entered in the HTMLL form - via `regitration.getName()` method
+   * The `ViewResolver` comes into picture and with the help of the configuration values in the `application.properties` it picks up the jsp file `registration.jsp' with the help of the return value of the `addRegisgration()` method which is - "registration"
+   
+   

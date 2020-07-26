@@ -10,6 +10,7 @@ public class GreetingController {
 
     @GetMapping("greeting")
     public String greeting(Map<String, Object> model) {
+        System.out.println("GreetingController - greeting() method invoked");
         model.put("message", "Hello Raghs");
         return "greeting";
     }
