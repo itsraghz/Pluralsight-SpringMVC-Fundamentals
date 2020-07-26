@@ -74,7 +74,7 @@ spring.mvc.view.suffix=.jsp
    * The return value of the method is the name of the view file without the extension `greeting` in `greeting.jsp`
     as the `prefix` and `suffix` are automatically deduced from the configuration made in the `application.properties` file.
 
-* *Issue*: The main URL `http://localhost:8080/conference` seems to have broken, possibly due to the fact that the mapping has not been added explicitly.
+> *Issue*: The main URL `http://localhost:8080/conference` seems to have broken, possibly due to the fact that the mapping has not been added explicitly.
 
 ## Module 5 - Creating Controllers in Spring MVC
 
@@ -118,13 +118,14 @@ Adding a Registration Controller
 * Add a `modelAttribute` attribute in the `<form:form>` to map the elements in the HTML from to this Model attribute. 
 
 > Remember: The same attribute name `registration` has been captured in the Controller methods with `@GetMapping` and `@PostMapping` annotations.
-*  Rerun the Tomcat Server and click the URL `http://localhost:8080/conference/registratation`
+*  Rerun the Tomcat Server and click the URL `http://localhost:8080/conference/registration`
    * You will have a HTML form to enter a name
    * Click on the 'Add Registration' button
    * The dispatcherServlet is invoked and delegates the request to the `RegistrationController` class 
    * The attribute is bound to the model `Registration` 
    * The Controller method `addRegistration` - the one with `@PostMapping` annotation is invoked
    * You can see the `System.out.println()` statement with the message in the Console that prints out the name entered in the HTMLL form - via `regitration.getName()` method
-   * The `ViewResolver` comes into picture and with the help of the configuration values in the `application.properties` it picks up the jsp file `registration.jsp' with the help of the return value of the `addRegisgration()` method which is - "registration"
+   * The `ViewResolver` comes into picture and with the help of the configuration values in the `application.properties` it picks up the jsp file `registration.jsp` with the help of the return value of the `addRegisgration()` method which is - "registration"
    
+> *Note*: The issue with the earlier module - of the main context root `http://localhost:8080/conference` is now resolved, after we delete the `index.html` page inside the `webapp` directory.
    
