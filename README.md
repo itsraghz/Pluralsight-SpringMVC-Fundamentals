@@ -41,6 +41,37 @@ spring.output.ansi.enabled=always
 * The *static* resources are *NOT* served by default in the external containers when served inside IntelliJ IDEA.
   * Add a new directory `src/main/webapp` and copy the *index.html* file from the 'static/resources' directory
 * Click on the 'Tomcat 9.0.37' runtime configuration (the green icon)
-* The Tomcat server runs and the application module is deployed 
+* The Tomcat server runs, and the application module will be deployed 
 * It automatically pulls up the browser and hits the url `http://localhost:8080/conference` automatically and serves the file content of `index.html`
 
+### Add a Greeting
+
+* Add a folder `/WEB-INF/jsp` under the same `webapp` directory
+* Add a file called `greeting.jsp` inside the `/WEB-INF/jsp/` directory
+    * Put a message `<h1>${message}</h1>` inside the `greeting.jsp` file
+* Add a few configurations inside the `application.properties` file as follows.
+
+```properties
+# the trailing space is very important
+spring.mvc.view.prefix=/WEB-INF/jsp/
+# the "." is very important
+spring.mvc.view.suffix=.jsp
+```
+* Make the Java class `ConferenceApplication` extends the `SpringBootServletInitializer` from the package `org.springframework.boot.web.servlet.support`
+* Add a new class `GreetingController` inside the package `com.pluralsight.conference.controller`
+    * The class should have an annotation `@Controller` (of stereotype) at the class level
+* Add a new method named `greeting` (can be anything but recommended to keep it consistent with the functionality) as follows
+
+```java
+    @GetMapping("greeting")
+    public String greeting(Map<String, Object> model) {
+        model.put("message", "Hello Raghs");
+        return "greeting";
+    }
+```
+   * This method adds a key named `message` and puts a String into it.
+   * The same key will be retrieved inside the `greeting.jsp` file
+   * The return value of the method is the name of the view file without the extension `greeting` in `greeting.jsp`
+    as the `prefix` and `suffix` are automatically deduced from the configuration made in the `application.properties` file.
+
+* *Issue*: The main URL `http://localhost:8080/conference` seems to have broken, possibly due to the fact that the mapping has not been added explicitly.
