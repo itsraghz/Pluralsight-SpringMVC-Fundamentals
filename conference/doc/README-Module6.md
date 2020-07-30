@@ -45,7 +45,7 @@
    
    * Console Output :
    
-   ```java
+   ```text
      .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
     ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -68,7 +68,7 @@
    ```
   * The rest of the output be as usual. 
   
-  ```java
+  ```text
     GreetingController - greeting() method invoked
     RegistrationController - register() method invoked
     RegistrationController - addRegistration() method invoked for : M Raghavan 
@@ -79,4 +79,28 @@
 
  *  Spring provides various `ViewResolvers` which you can use it in your application, or even you can
  create your own custom View Resolver, as they are all going to the implementation of the `ViewResolver` interface. 
+
+## Add a ResourceHandler
+
+ * We can add a `ResourceHandler` for handling the static resources like `.pdf`, `.jpg` or the cached contents etc.,  
+ via the Spring MVC application.
+ * Make the `ConfigConference` class *implement* the `WebMvcConfigurer` interface
+ * Add an implementation to the method as follows, which is an overridden method of the implemented interface.
+ 
+ ```java
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("ConferenceConfig - addResourceHandlers() invoked.");
+        registry
+                .addResourceHandler("/files/**")
+                .addResourceLocations("/WEB-INF/pdf/");
+    } 
+ ```
+ * Create a new folder called `pdf` inside the directory `./src/webapp/WEB-INF/` 
+ * Add a new PDF file - which is exported from the same `ConferenceConfig.java` class - as `ConferenceConfig.pdf`.
   
+### Verification
+
+ * Hit the URL : (http://localhost:8080/conference/files/ConferenceConfig.pdf) [http://localhost:8080/conference/files/ConferenceConfig.pdf]
+ * The browser will render the PDF file - as the Spring MVC has looked for a file inside the `/WEB-INF/pdf/` for any resoruce
+ being asked for with the mapping `/files/`.
