@@ -19,9 +19,8 @@
  * Did a few workarounds for the UTF-8 text to be displayed with Spring `messages.properties`.
     * Added a `web.xml` entry to have the `CharacerEncodingFilter` with a forcible encoding applied to `UTF-8` on all requests
     * Added a few methods in the `ConferenceConfig` class to override the `UTF-8` handling on all requests.
-    * TBD - for a detailed steps to cover the R & D.
-    * TBD - the UTF-8 input from JSP to Controller - not yet happening. 
-    Only tried displaying it from the properties file to the JSP/HTML.    
+    > * TBD - for a detailed steps to cover the R & D.
+    > * TBD - the UTF-8 input from JSP to Controller - not yet happening. Only tried displaying it from the properties file to the JSP/HTML.    
  
 ### PRG Pattern (Post-Redirect-Get)
 
