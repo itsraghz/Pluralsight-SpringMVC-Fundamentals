@@ -15,15 +15,21 @@ public class RegistrationController {
         return "registration";
     }*/
 
-    @GetMapping("registration")
+    @GetMapping(value="registration", produces = "text/html;charset=UTF-8")
     public String getRegistration(@ModelAttribute("registration") Registration registration) {
         System.out.println("RegistrationController - register() method invoked");
         return "registration";
     }
 
-    @PostMapping("registration")
+    @PostMapping(value="registration", produces = "text/html;charset=UTF-8")
     public String addRegistration(@ModelAttribute("registration") Registration registration) {
         System.out.println("RegistrationController - addRegistration() method invoked for : " + registration.getName());
-        return "registration";
+        /*
+         * registration - simple return of a POST request handling
+         * redirect:registration - to implement the PRG (Post-Redirect-Get) pattern.
+         *      Spring handles the stuff internally.
+         */
+        //return "registration";
+        return "redirect:registration";
     }
 }
